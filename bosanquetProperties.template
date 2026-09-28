@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| Connectivity-selective Bosanquet model                                    |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      bosanquetProperties;
+}
+
+// Cells with alpha.water >= this value participate in water connectivity.
+connectivityAlpha  0.5;
+
+// Boundary patches touching the donor/reservoir water column. At least one
+// owner cell next to these patches must satisfy alpha.water>=connectivityAlpha.
+seedPatches
+(
+    inlet
+);
+
+regions
+(
+    {
+        name        tube1;
+        wallPatch   Wall1;
+        cellZone    tube1Cells;
+        radius      [0 1 0 0 0 0 0] 0.00005;
+    }
+);
+
+// ************************************************************************* //
